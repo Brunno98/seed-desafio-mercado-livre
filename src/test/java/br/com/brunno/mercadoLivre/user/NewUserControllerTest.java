@@ -43,8 +43,7 @@ public class NewUserControllerTest {
     ) throws Exception {
         Map<String, Object> payload = Map.of(
                 "login", email + "@example.com",
-                "password", password,
-                "createDate", LocalDateTime.now().toString()
+                "password", password
         );
 
         mockMvc.post("/user", payload)

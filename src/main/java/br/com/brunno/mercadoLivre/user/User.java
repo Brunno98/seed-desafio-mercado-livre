@@ -16,15 +16,14 @@ public class User {
     private Long id;
     private String login;
     private String password;
-    private LocalDateTime createDate;
+    private LocalDateTime createDate = LocalDateTime.now();
 
     @Deprecated
     public User() {}
 
-    public User(String login, String password, LocalDateTime createDate) {
+    public User(String login, PlainPassword password) {
         this.login = login;
-        this.password = Integer.toString(Objects.hash(password));
-        this.createDate = createDate;
+        this.password = password.hash();
     }
 
     public String getLogin() {
