@@ -10,6 +10,7 @@ public class NewUserRequest {
 
     @NotBlank
     @Email
+    @UniqueUser
     private String login;
 
     @NotBlank

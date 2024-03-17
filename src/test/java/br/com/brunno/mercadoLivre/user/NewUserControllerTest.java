@@ -12,6 +12,7 @@ import net.jqwik.api.constraints.NumericChars;
 import net.jqwik.api.constraints.StringLength;
 import net.jqwik.spring.JqwikSpringSupport;
 import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,6 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Import(CustomMockMvc.class)
 public class NewUserControllerTest {
+
+    private static final Set<String> generatedEmails = new HashSet<>();
 
     @Autowired
     CustomMockMvc mockMvc;
@@ -41,6 +47,8 @@ public class NewUserControllerTest {
             @ForAll @StringLength(max = 64) @AlphaChars @NotBlank String email,
             @ForAll @StringLength(min = 6) @AlphaChars @NumericChars @Chars({'!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '_', '-', '+', '+'}) String password
     ) throws Exception {
+        Assumptions.assumeTrue(generatedEmails.add(email.toLowerCase()));
+
         Map<String, Object> payload = Map.of(
                 "login", email + "@example.com",
                 "password", password
@@ -48,5 +56,8 @@ public class NewUserControllerTest {
 
         mockMvc.post("/user", payload)
                 .andExpect(status().isOk());
+
+        mockMvc.post("/user", payload)
+                .andExpect(status().isBadRequest());
     }
 }
