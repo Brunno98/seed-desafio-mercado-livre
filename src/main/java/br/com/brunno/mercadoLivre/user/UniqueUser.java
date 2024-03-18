@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = UniqueUserValidator.class)
 public @interface UniqueUser {
 
-    String message() default "email already exists";
+    String message() default "already exists";
 
     Class<?>[] groups() default {};
 
