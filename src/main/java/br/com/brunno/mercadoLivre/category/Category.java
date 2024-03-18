@@ -8,6 +8,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import org.springframework.util.Assert;
 
+/*
+    Contagem de complexidade cognitiva
+    (Classe com estado - limite 9)
+
+    - Category (referencia a si propria)
+
+    total: 1
+ */
+/*
+    Branches para testar: 0
+ */
+
+
 @Entity
 public class Category {
 

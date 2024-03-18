@@ -9,6 +9,20 @@ import org.springframework.util.Assert;
 
 import java.util.Objects;
 
+/*
+    Contagem de complexidade cognitiva
+    (Classe com estado - limite 9)
+
+    - UniqueCategory
+    - IdExists
+    - Category
+
+    total: 3
+ */
+/*
+    Branches para testar: 1
+ */
+
 @Getter
 public class NewCategoryRequest {
 

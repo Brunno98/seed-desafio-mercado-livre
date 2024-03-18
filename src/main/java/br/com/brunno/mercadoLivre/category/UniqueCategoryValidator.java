@@ -5,6 +5,18 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+/*
+    Contagem de complexidade cognitiva
+    (Classe sem estado - limite 7)
+
+    - UniqueCategory
+    - CategoryRepository
+
+    total: 2
+ */
+/*
+    Branches para testar: 1
+ */
 public class UniqueCategoryValidator implements ConstraintValidator<UniqueCategory, String> {
 
     private final CategoryRepository categoryRepository;

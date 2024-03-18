@@ -9,6 +9,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/*
+    Contagem de complexidade cognitiva
+    (Classe sem estado - limite 7)
+
+    - NewCategoryRequest
+    - Category
+
+    total: 2
+ */
+/*
+    Branches para testar: 0
+*/
+
 @RestController
 @RequestMapping("/category")
 public class NewCategoryController {
