@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class NewCategoryControllerTest {
 
     @Label("should create category")
     @Property(tries = 20)
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     void createCategory(
             @ForAll @StringLength(max = 255) @AlphaChars @NotBlank String name
     ) throws Exception {

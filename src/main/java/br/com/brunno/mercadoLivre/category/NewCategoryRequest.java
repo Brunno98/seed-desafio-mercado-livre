@@ -1,6 +1,7 @@
 package br.com.brunno.mercadoLivre.category;
 
 import br.com.brunno.mercadoLivre.shared.IdExists;
+import br.com.brunno.mercadoLivre.shared.Unique;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ import java.util.Objects;
     Contagem de complexidade cognitiva
     (Classe com estado - limite 9)
 
-    - UniqueCategory
+    - Unique
     - IdExists
     - Category
 
@@ -27,7 +28,7 @@ import java.util.Objects;
 public class NewCategoryRequest {
 
     @NotBlank
-    @UniqueCategory
+    @Unique(domainClass = Category.class, fieldName = "name")
     private String name;
 
     @Nullable

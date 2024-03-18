@@ -1,5 +1,6 @@
 package br.com.brunno.mercadoLivre.user;
 
+import br.com.brunno.mercadoLivre.shared.Unique;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -10,7 +11,7 @@ public class NewUserRequest {
 
     @NotBlank
     @Email
-    @UniqueUser
+    @Unique(domainClass = User.class, fieldName = "login")
     private String login;
 
     @NotBlank
