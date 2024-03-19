@@ -34,6 +34,16 @@ public class User {
         return createDate;
     }
 
+
+    /*
+        (a) login equals
+        (b) password equals
+
+        a b   &&
+        v v = v
+        f v = f
+        v f = f
+     */
     public boolean credentialsMatch(String login, String password) {
         if (!this.login.equalsIgnoreCase(login)) return false;
         return BCrypt.checkpw(password, this.password);
