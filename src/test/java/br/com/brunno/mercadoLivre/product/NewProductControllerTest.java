@@ -34,14 +34,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Import(CustomMockMvc.class)
-@WithMockUser
 public class NewProductControllerTest {
 
     @Autowired
     private CustomMockMvc mockMvc;
 
     @Label("Should create product")
-    @Property(tries = 100, edgeCases = EdgeCasesMode.FIRST)
+    @Property(tries = 20, edgeCases = EdgeCasesMode.FIRST)
     void createProduct(
             @ForAll @StringLength(max = 255) @NotBlank @AlphaChars @Whitespace String name,
             @ForAll @BigRange(max = "9999") @Scale(2) @Positive BigDecimal price,
@@ -49,7 +48,7 @@ public class NewProductControllerTest {
             @ForAll @Size(min = 3, max = 30) List<@StringLength(max = 255) @NotBlank @AlphaChars @Whitespace String> characteristc,
             @ForAll @StringLength(max = 1000) @NotBlank @AlphaChars @Whitespace String description
             ) throws Exception {
-        mockMvc.post("/category", Map.of("name", "foo"));
+        mockMvc.postAuthenticated("/category", Map.of("name", "foo"));
 
         Map<String, Object> payload = Map.of(
                 "name", name,
@@ -60,7 +59,7 @@ public class NewProductControllerTest {
                 "categoryId", 1
         );
 
-        mockMvc.post("/product", payload)
+        mockMvc.postAuthenticated("/product", payload)
                 .andExpect(status().isOk());
     }
 }

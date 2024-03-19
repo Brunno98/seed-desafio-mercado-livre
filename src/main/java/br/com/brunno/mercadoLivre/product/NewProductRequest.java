@@ -2,6 +2,7 @@ package br.com.brunno.mercadoLivre.product;
 
 import br.com.brunno.mercadoLivre.category.Category;
 import br.com.brunno.mercadoLivre.shared.IdExists;
+import br.com.brunno.mercadoLivre.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -52,9 +53,9 @@ public class NewProductRequest {
     @IdExists(domain = Category.class)
     private Long categoryId;
 
-    public Product toProduct(EntityManager entityManager) {
+    public Product toProduct(EntityManager entityManager, User owner) {
         Category category = entityManager.find(Category.class, categoryId);
         Assert.notNull(category, "Category must exists");
-        return new Product(name, price, quantityAvailable, characteristics, description, category);
+        return new Product(name, price, quantityAvailable, characteristics, description, category, owner);
     }
 }

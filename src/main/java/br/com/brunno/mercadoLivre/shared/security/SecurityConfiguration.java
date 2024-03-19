@@ -35,12 +35,13 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers("/login").permitAll();
                     authorize.requestMatchers(HttpMethod.POST, "/user").permitAll();
+                    authorize.requestMatchers("/h2-console").permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-                .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable);
+                .csrf(AbstractHttpConfigurer::disable);
+//                .httpBasic(AbstractHttpConfigurer::disable)
+//                .formLogin(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
