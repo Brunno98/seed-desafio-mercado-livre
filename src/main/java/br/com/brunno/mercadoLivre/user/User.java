@@ -4,9 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 public class User {
@@ -32,5 +32,10 @@ public class User {
 
     public LocalDateTime getCreateDate() {
         return createDate;
+    }
+
+    public boolean credentialsMatch(String login, String password) {
+        if (!this.login.equalsIgnoreCase(login)) return false;
+        return BCrypt.checkpw(password, this.password);
     }
 }
