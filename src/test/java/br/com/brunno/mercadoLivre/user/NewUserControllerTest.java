@@ -28,8 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Import(CustomMockMvc.class)
-@ContextConfiguration
-@WithMockUser
 public class NewUserControllerTest {
 
     private static final Set<String> generatedEmails = new HashSet<>();
