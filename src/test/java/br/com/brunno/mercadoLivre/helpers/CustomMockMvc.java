@@ -58,7 +58,7 @@ public class CustomMockMvc {
         }
     }
 
-    private String authenticate() {
+    public String authenticate() {
         this.post("/user", Map.of("login", "test@email.com", "password", "secret"));
         try {
             MvcResult mvcResult = this.post("/login", Map.of("username", "test@email.com", "password", "secret"))

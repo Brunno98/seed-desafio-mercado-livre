@@ -15,6 +15,7 @@ public class ProductDetails {
     private final String description;
     private final String category;
     private final String owner;
+    private final List<String> images;
 
     public ProductDetails(Product product) {
         this.id = product.getId();
@@ -25,5 +26,6 @@ public class ProductDetails {
         this.description = product.getDescription();
         this.category = product.getCategoryName();
         this.owner = product.getOwnerLogin();
+        this.images = product.getImages();
     }
 }

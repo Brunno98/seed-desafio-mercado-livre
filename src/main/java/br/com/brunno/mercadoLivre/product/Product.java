@@ -23,8 +23,9 @@ import java.util.List;
     Contagem de carga intrinseca:
     (classe com estado - 9 pontos):
     - Category
+    - User
 
-    Total: 1
+    Total: 2
  */
 
 /*
@@ -63,6 +64,9 @@ public class Product {
     @ManyToOne
     private User owner;
 
+    @ElementCollection
+    private List<@NotBlank String> images;
+
     @Deprecated
     public Product() {}
 
@@ -94,6 +98,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", category=" + category +
                 ", owner=" + owner +
+                ", images=" + images +
                 '}';
     }
 
@@ -103,7 +108,16 @@ public class Product {
     }
 
     public String getOwnerLogin() {
-        Assert.notNull(owner, "Product owner should did not be null");
+        Assert.notNull(owner, "Product owner should did not be null!");
         return owner.getLogin();
+    }
+
+    public void addImage(String imageUri) {
+        this.images.add(imageUri);
+    }
+
+    public boolean belongsTo(User user) {
+        Assert.notNull(user, "user to verify if is product owner cannot be null!");
+        return user.equals(this.owner);
     }
 }
