@@ -36,22 +36,35 @@ public class CustomMockMvc {
     }
 
     public ResultActions postAuthenticated(String uri, Map<String, Object> payload) {
+        String jwt = authenticate();
+        try {
+            return mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer "+jwt)
+                    .content(objectMapper.writeValueAsString(payload)));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ResultActions getAuthenticated(String uri) {
+        String jwt = authenticate();
+        try {
+            return mockMvc.perform(MockMvcRequestBuilders.get(uri)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer "+jwt));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String authenticate() {
         this.post("/user", Map.of("login", "test@email.com", "password", "secret"));
-        String loginResponse;
         try {
             MvcResult mvcResult = this.post("/login", Map.of("username", "test@email.com", "password", "secret"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andReturn();
-            loginResponse = mvcResult.getResponse().getContentAsString();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            return mockMvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer "+loginResponse)
-                    .content(objectMapper.writeValueAsString(payload)));
+            return mvcResult.getResponse().getContentAsString();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

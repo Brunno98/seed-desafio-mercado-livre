@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -94,5 +95,15 @@ public class Product {
                 ", category=" + category +
                 ", owner=" + owner +
                 '}';
+    }
+
+    public String getCategoryName() {
+        Assert.notNull(category, "Category from product should did not be null!");
+        return category.getName();
+    }
+
+    public String getOwnerLogin() {
+        Assert.notNull(owner, "Product owner should did not be null");
+        return owner.getLogin();
     }
 }

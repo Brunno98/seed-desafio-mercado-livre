@@ -56,4 +56,8 @@ public class Category {
                 ", parent=" + parent +
                 '}';
     }
+
+    public String getName() {
+        return name;
+    }
 }
