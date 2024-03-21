@@ -60,7 +60,7 @@ public class ProductControllerTest {
         Map<String, Object> payload = Map.of(
                 "name", name,
                 "price", price,
-                "quantityAvailable", quantity,
+                "availableQuantity", quantity,
                 "characteristics", characteristc,
                 "description", description,
                 "categoryId", 1
@@ -77,7 +77,7 @@ public class ProductControllerTest {
         customMockMvc.postAuthenticated("/product", Map.of(
                 "name", "foo",
                 "price", 49.99,
-                "quantityAvailable", 100,
+                "availableQuantity", 100,
                 "characteristics", List.of("foo", "bar", "foobar"),
                 "description", "some description...",
                 "categoryId", 1
@@ -96,7 +96,7 @@ public class ProductControllerTest {
         customMockMvc.postAuthenticated("/product", Map.of(
                 "name", "foo",
                 "price", 49.99,
-                "quantityAvailable", 100,
+                "availableQuantity", 100,
                 "characteristics", List.of("foo", "bar", "foobar"),
                 "description", "some description...",
                 "categoryId", 1

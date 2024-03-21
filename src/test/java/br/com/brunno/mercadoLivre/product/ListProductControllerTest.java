@@ -34,7 +34,7 @@ public class ListProductControllerTest {
         mockMvc.postAuthenticated("/product", Map.of(
                 "name", "foo",
                 "price", 49.99,
-                "quantityAvailable", 100,
+                "availableQuantity", 100,
                 "characteristics", List.of("foo", "bar", "foobar"),
                 "description", "some description...",
                 "categoryId", 1
@@ -43,7 +43,7 @@ public class ListProductControllerTest {
         mockMvc.postAuthenticated("/product", Map.of(
                 "name", "bar",
                 "price", 42.79,
-                "quantityAvailable", 200,
+                "availableQuantity", 200,
                 "characteristics", List.of("foo", "bar", "foobar"),
                 "description", "some description...",
                 "categoryId", 1

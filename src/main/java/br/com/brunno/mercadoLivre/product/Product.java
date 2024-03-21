@@ -48,7 +48,7 @@ public class Product {
     private BigDecimal price;
 
     @Positive
-    private int quantityAvailable;
+    private int availableQuantity;
 
     @ElementCollection
     @Size(min = 3)
@@ -72,7 +72,7 @@ public class Product {
 
     public Product(String name,
                    BigDecimal price,
-                   int quantityAvailable,
+                   int availableQuantity,
                    List<String> characteristics,
                    String description,
                    Category category,
@@ -80,7 +80,7 @@ public class Product {
     ) {
         this.name = name;
         this.price = price;
-        this.quantityAvailable = quantityAvailable;
+        this.availableQuantity = availableQuantity;
         this.characteristics = characteristics;
         this.description = description;
         this.category = category;
@@ -93,7 +93,7 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", quantityAvailable=" + quantityAvailable +
+                ", quantityAvailable=" + availableQuantity +
                 ", characteristics=" + characteristics +
                 ", description='" + description + '\'' +
                 ", category=" + category +

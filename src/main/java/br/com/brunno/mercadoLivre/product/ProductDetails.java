@@ -10,7 +10,7 @@ public class ProductDetails {
     private final Long id;
     private final String name;
     private final BigDecimal price;
-    private final int quantityAvailable;
+    private final int availableQuantity;
     private final List<String> characteristics;
     private final String description;
     private final String category;
@@ -21,7 +21,7 @@ public class ProductDetails {
         this.id = product.getId();
         this.name = product.getName();
         this.price = product.getPrice();
-        this.quantityAvailable = product.getQuantityAvailable();
+        this.availableQuantity = product.getAvailableQuantity();
         this.characteristics = product.getCharacteristics();
         this.description = product.getDescription();
         this.category = product.getCategoryName();

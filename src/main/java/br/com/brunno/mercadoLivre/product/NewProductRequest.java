@@ -40,7 +40,7 @@ public class NewProductRequest {
     private BigDecimal price;
 
     @Positive
-    private int quantityAvailable;
+    private int availableQuantity;
 
     @Size(min = 3)
     private List<@NotBlank String> characteristics;
@@ -56,6 +56,6 @@ public class NewProductRequest {
     public Product toProduct(EntityManager entityManager, User owner) {
         Category category = entityManager.find(Category.class, categoryId);
         Assert.notNull(category, "Category must exists");
-        return new Product(name, price, quantityAvailable, characteristics, description, category, owner);
+        return new Product(name, price, availableQuantity, characteristics, description, category, owner);
     }
 }
