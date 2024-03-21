@@ -59,4 +59,20 @@ public class Review {
                 ", product='" + product.getName() + '\'' +
                 '}';
     }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getAuthor() {
+        return author.getLogin();
+    }
 }

@@ -60,4 +60,8 @@ public class Category {
     public String getName() {
         return name;
     }
+
+    public Category getParent() {
+        return parent;
+    }
 }

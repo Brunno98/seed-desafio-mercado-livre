@@ -1,6 +1,7 @@
 package br.com.brunno.mercadoLivre.product;
 
 import br.com.brunno.mercadoLivre.helpers.CustomMockMvc;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.jqwik.api.EdgeCasesMode;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Label;
@@ -22,15 +23,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @JqwikSpringSupport
@@ -112,5 +117,51 @@ public class ProductControllerTest {
         mockMvc.perform(multipart(HttpMethod.PATCH, "/product/1/image").file(file)
                         .header("Authorization", "Bearer "+jwt))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @DisplayName("When get product by id should return full details of product")
+    void getById() throws Exception {
+        customMockMvc.postAuthenticated("/category", Map.of("name", "category")).andExpectAll(status().isOk());
+        customMockMvc.postAuthenticated("/product", Map.of(
+                "name", "foo",
+                "price", 49.99,
+                "availableQuantity", 100,
+                "characteristics", List.of("foo", "bar", "foobar"),
+                "description", "some description...",
+                "categoryId", 1
+        )).andExpect(status().isOk());
+        MockMultipartFile file = new MockMultipartFile("images", "image.png", "image/png", "think it is image...".getBytes());
+        mockMvc.perform(multipart(HttpMethod.PATCH, "/product/1/image").file((file))
+                        .header("Authorization", "Bearer "+customMockMvc.authenticate()))
+                .andExpect(status().isOk());
+
+        customMockMvc.post("/user", Map.of("login", "other@email.com", "password", "654321"))
+                .andExpect(status().isOk());
+        String jwt = customMockMvc.post("/login", Map.of("username", "other@email.com", "password", "654321"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        mockMvc.perform(post("/review/product/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer "+jwt)
+                .content(new ObjectMapper().writeValueAsString(Map.of(
+                        "rating", 5,
+                        "title", "foo",
+                        "description", "some description"
+                ))));
+
+        mockMvc.perform(post("/question")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer "+jwt)
+                .content(new ObjectMapper().writeValueAsString(Map.of("title", "foo?", "productId", 1)))
+        );
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/product/1")
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer "+jwt))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());
     }
 }

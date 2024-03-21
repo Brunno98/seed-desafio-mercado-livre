@@ -1,6 +1,7 @@
 package br.com.brunno.mercadoLivre.product;
 
 import br.com.brunno.mercadoLivre.category.Category;
+import br.com.brunno.mercadoLivre.review.Review;
 import br.com.brunno.mercadoLivre.user.User;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -17,6 +19,8 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /*
@@ -67,6 +71,9 @@ public class Product {
     @ElementCollection
     private List<@NotBlank String> images;
 
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviews;
+
     @Deprecated
     public Product() {}
 
@@ -85,6 +92,8 @@ public class Product {
         this.description = description;
         this.category = category;
         this.owner = owner;
+        this.images = new ArrayList<>();
+        this.reviews = new ArrayList<>();
     }
 
     @Override
@@ -119,5 +128,13 @@ public class Product {
     public boolean belongsTo(User user) {
         Assert.notNull(user, "user to verify if is product owner cannot be null!");
         return user.equals(this.owner);
+    }
+
+    public double getRating() {
+        return reviews.stream().mapToInt(Review::getRating).average().orElse(0);
+    }
+
+    public List<Review> getReviews() {
+        return Collections.unmodifiableList(this.reviews);
     }
 }
