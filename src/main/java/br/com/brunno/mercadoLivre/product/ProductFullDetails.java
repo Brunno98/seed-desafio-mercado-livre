@@ -28,6 +28,6 @@ public class ProductFullDetails {
         this.images = product.getImages();
         this.characteristics = product.getCharacteristics();
         this.description = product.getDescription();
-        this.reviews = product.getReviews().stream().map(ReviewDetails::new).collect(Collectors.toList());
+        this.reviews = product.mapReviews(ReviewDetails::new);
     }
 }

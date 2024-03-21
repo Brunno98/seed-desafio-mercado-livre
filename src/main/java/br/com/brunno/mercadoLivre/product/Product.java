@@ -22,6 +22,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /*
     Contagem de carga intrinseca:
@@ -134,7 +136,7 @@ public class Product {
         return reviews.stream().mapToInt(Review::getRating).average().orElse(0);
     }
 
-    public List<Review> getReviews() {
-        return Collections.unmodifiableList(this.reviews);
+    public <T> List<T> mapReviews(Function<Review, T> mapperFunction) {
+        return this.reviews.stream().map(mapperFunction).collect(Collectors.toList());
     }
 }
