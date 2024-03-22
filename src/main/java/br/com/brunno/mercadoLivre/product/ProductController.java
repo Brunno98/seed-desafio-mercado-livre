@@ -29,8 +29,10 @@ import java.util.Arrays;
     - User
     - IdExists
     - StorageService
+    - if (!product.belongsTo(user))
+    - Arrays.stream(images).forEach(image -> {
 
-    Total: 6
+    Total: 8 !!
  */
 
 /*

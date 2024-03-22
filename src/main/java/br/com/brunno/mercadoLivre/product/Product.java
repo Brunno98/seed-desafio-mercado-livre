@@ -20,7 +20,6 @@ import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -30,8 +29,11 @@ import java.util.stream.Collectors;
     (classe com estado - 9 pontos):
     - Category
     - User
+    - Review
+    - Review::getRating
+    - Function<Review, T> mapperFunction
 
-    Total: 2
+    Total: 5
  */
 
 /*
