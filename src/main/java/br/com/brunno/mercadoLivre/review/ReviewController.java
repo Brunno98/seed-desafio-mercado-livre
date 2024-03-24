@@ -2,7 +2,7 @@ package br.com.brunno.mercadoLivre.review;
 
 import br.com.brunno.mercadoLivre.login.AuthenticationService;
 import br.com.brunno.mercadoLivre.product.Product;
-import br.com.brunno.mercadoLivre.shared.IdExists;
+import br.com.brunno.mercadoLivre.shared.validator.IdExists;
 import br.com.brunno.mercadoLivre.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;

@@ -1,4 +1,4 @@
-package br.com.brunno.mercadoLivre.shared;
+package br.com.brunno.mercadoLivre.shared.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

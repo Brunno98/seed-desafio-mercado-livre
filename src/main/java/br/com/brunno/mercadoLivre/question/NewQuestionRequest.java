@@ -1,7 +1,7 @@
 package br.com.brunno.mercadoLivre.question;
 
 import br.com.brunno.mercadoLivre.product.Product;
-import br.com.brunno.mercadoLivre.shared.IdExists;
+import br.com.brunno.mercadoLivre.shared.validator.IdExists;
 import br.com.brunno.mercadoLivre.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;

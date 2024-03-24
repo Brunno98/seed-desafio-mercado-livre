@@ -1,7 +1,7 @@
 package br.com.brunno.mercadoLivre.category;
 
-import br.com.brunno.mercadoLivre.shared.IdExists;
-import br.com.brunno.mercadoLivre.shared.Unique;
+import br.com.brunno.mercadoLivre.shared.validator.IdExists;
+import br.com.brunno.mercadoLivre.shared.validator.Unique;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;

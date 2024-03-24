@@ -1,5 +1,6 @@
-package br.com.brunno.mercadoLivre.shared;
+package br.com.brunno.mercadoLivre.shared.validator;
 
+import br.com.brunno.mercadoLivre.shared.validator.UniqueValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.assertj.core.api.Assertions;

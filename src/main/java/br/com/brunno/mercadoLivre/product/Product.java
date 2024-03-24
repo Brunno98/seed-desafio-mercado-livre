@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
@@ -55,7 +56,7 @@ public class Product {
     @Positive
     private BigDecimal price;
 
-    @Positive
+    @PositiveOrZero
     private int availableQuantity;
 
     @ElementCollection
@@ -140,5 +141,16 @@ public class Product {
 
     public <T> List<T> mapReviews(Function<Review, T> mapperFunction) {
         return this.reviews.stream().map(mapperFunction).collect(Collectors.toList());
+    }
+
+    public boolean hasStock(int quantity) {
+        return availableQuantity >= quantity;
+    }
+
+    public void downStock(int quantity) {
+        Assert.isTrue(quantity > 0, "Cannot down stock with negative or zero quantity!");
+        Assert.isTrue(availableQuantity >= quantity, "Cannot down quantities bigger than stock");
+        availableQuantity -= quantity;
+        Assert.isTrue(availableQuantity >=0, "Stock cannot have a negative quantity");
     }
 }

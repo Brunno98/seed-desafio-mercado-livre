@@ -1,6 +1,6 @@
 package br.com.brunno.mercadoLivre.user;
 
-import br.com.brunno.mercadoLivre.shared.Unique;
+import br.com.brunno.mercadoLivre.shared.validator.Unique;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

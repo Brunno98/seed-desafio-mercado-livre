@@ -1,4 +1,4 @@
-package br.com.brunno.mercadoLivre.shared;
+package br.com.brunno.mercadoLivre.shared.validator;
 
 import jakarta.persistence.EntityManager;
 import jakarta.validation.ConstraintValidator;
