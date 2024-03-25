@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Purchase {
 
@@ -54,5 +56,17 @@ public class Purchase {
 
     public String getRedirectUri(String callbackUrl) {
         return this.paymentMethod.getRedirectLink(id, callbackUrl);
+    }
+
+    public User getBuyer() {
+        return this.buyer;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public PaymentMethod getPaymenyMethod() {
+        return paymentMethod;
     }
 }

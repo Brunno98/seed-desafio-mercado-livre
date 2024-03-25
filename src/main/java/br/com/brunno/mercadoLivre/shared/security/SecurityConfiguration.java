@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers("/login").permitAll();
                     authorize.requestMatchers(HttpMethod.POST, "/user").permitAll();
+                    authorize.requestMatchers("/nota-fiscal").permitAll();
                     authorize.requestMatchers("/h2-console").permitAll();
                     authorize.anyRequest().authenticated();
                 })

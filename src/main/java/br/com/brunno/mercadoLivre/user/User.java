@@ -62,4 +62,8 @@ public class User {
     public int hashCode() {
         return Objects.hash(login, password);
     }
+
+    public Long getId() {
+        return this.id;
+    }
 }
