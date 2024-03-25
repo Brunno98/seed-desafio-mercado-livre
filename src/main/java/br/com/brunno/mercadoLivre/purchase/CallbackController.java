@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,6 +32,13 @@ public class CallbackController {
     @Transactional
     @PostMapping("/payment/callback")
     public String paymentCallback(@RequestBody @Valid PaymentCallbackRequest paymentCallbackRequest) throws BindException {
+        List<Payment> transactions = entityManager.createQuery("SELECT p FROM Payment p WHERE p.purchase.id = :pId", Payment.class)
+                .setParameter("pId", paymentCallbackRequest.getPurchaseId())
+                .getResultList();
+
+        boolean hasSuccess = transactions.stream().anyMatch(Payment::isSuccess);
+        Assert.isTrue(!hasSuccess, "purchase already processed with success");
+
         Payment payment = paymentCallbackRequest.toPayment(entityManager);
 
         entityManager.persist(payment);
