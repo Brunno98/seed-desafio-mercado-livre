@@ -1,5 +1,7 @@
-package br.com.brunno.mercadoLivre.purchase;
+package br.com.brunno.mercadoLivre.payment;
 
+import br.com.brunno.mercadoLivre.purchase.Purchase;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,13 +20,16 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Purchase purchase;
 
+    @Column(unique = true)
     private String transactionId;
 
+    @Column(nullable = false)
     private String status;
 
+    @Column(nullable = false)
     private LocalDateTime createDate = LocalDateTime.now();
 
     @Deprecated

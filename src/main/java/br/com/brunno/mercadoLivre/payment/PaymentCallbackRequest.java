@@ -1,5 +1,7 @@
-package br.com.brunno.mercadoLivre.purchase;
+package br.com.brunno.mercadoLivre.payment;
 
+import br.com.brunno.mercadoLivre.payment.Payment;
+import br.com.brunno.mercadoLivre.purchase.Purchase;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
