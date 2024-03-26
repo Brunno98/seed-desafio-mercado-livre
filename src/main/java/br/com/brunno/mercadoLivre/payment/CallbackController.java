@@ -1,6 +1,5 @@
 package br.com.brunno.mercadoLivre.payment;
 
-import br.com.brunno.mercadoLivre.notaFiscal.NotaFiscalService;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -17,30 +16,26 @@ import java.util.List;
 
 /*
     Contagem carga intrinseca:
-    - NotaFiscalService
-    - PaymentEmail
-    - PaymentCallbackRequest
-    - Payment::isSuccess
-    - Assert.isTrue(!hasSuccess...
-    - Payment
+    - PaymentListener
     - UniquePaymentTransactionIdValidator
+    - PaymentCallbackRequest
+    - Payment
+    - Payment::isSuccess
 
-    total: 7
+    total: 5
  */
 
 @RestController
 public class CallbackController {
 
     private final EntityManager entityManager;
-    private final NotaFiscalService notaFiscalService;
-    private final PaymentEmail paymentEmail;
+    private final PaymentObservable paymentObservable;
     private final UniquePaymentTransactionIdValidator uniquePaymentTransactionIdValidator;
 
     @Autowired
-    public CallbackController(EntityManager entityManager, NotaFiscalService notaFiscalService, PaymentEmail paymentEmail, UniquePaymentTransactionIdValidator uniquePaymentTransactionIdValidator) {
+    public CallbackController(EntityManager entityManager, PaymentObservable paymentObservable, UniquePaymentTransactionIdValidator uniquePaymentTransactionIdValidator) {
         this.entityManager = entityManager;
-        this.notaFiscalService = notaFiscalService;
-        this.paymentEmail = paymentEmail;
+        this.paymentObservable = paymentObservable;
         this.uniquePaymentTransactionIdValidator = uniquePaymentTransactionIdValidator;
     }
 
@@ -63,15 +58,7 @@ public class CallbackController {
 
         entityManager.persist(payment);
 
-        // caso compra com sucesso, então chama serviço de nota fiscal
-        // precisa de id da compra e id do usuario
-        notaFiscalService.process(payment);
-
-        // envia email para o comprador
-        // caso compra tenha sido sucesso, então email tera o maximo de informacao que puder
-        // caso compra tenha falhado, então email tera aviso de falha e link para retentar
-
-        paymentEmail.process(payment);
+        paymentObservable.notify(payment);
 
         return payment.toString();
     }

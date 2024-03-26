@@ -8,6 +8,11 @@ import org.springframework.validation.Validator;
 
 import java.util.List;
 
+/* Contagem carga intrinseca:
+    - PaymentCallbackRequest
+    - Payment
+ */
+
 @Component
 public class UniquePaymentTransactionIdValidator implements Validator {
 

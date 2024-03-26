@@ -1,4 +1,4 @@
-package br.com.brunno.mercadoLivre.external.notaFiscal;
+package br.com.brunno.mercadoLivre.external;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

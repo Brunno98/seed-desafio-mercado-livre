@@ -7,9 +7,14 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-@Service
-public class PaymentEmail {
+/* Contagem carga intrinseca:
+    -
+ */
 
+@Service
+public class PaymentEmail implements SuccessPaymentListener, FailPaymentListener {
+
+    @Override
     public void process(Payment payment) {
         if (payment.isSuccess()) {
             sendSuccessPayment(payment);

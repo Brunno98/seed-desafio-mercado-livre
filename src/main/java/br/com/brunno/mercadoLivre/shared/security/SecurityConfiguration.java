@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers(HttpMethod.POST, "/user").permitAll();
                     authorize.requestMatchers("/nota-fiscal").permitAll();
                     authorize.requestMatchers("/h2-console").permitAll();
+                    authorize.requestMatchers("/vendedor/ranking").permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
